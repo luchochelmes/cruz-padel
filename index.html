@@ -75,22 +75,19 @@
     })();
   </script>
 
-  <div style="max-width:1180px; margin:0 auto; padding:56px 32px 0;">
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:36px; align-items:end;">
-      <div style="display:flex; flex-direction:column; gap:22px;">
-        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#2e5a3d;">Córdoba capital · 4 canchas techadas</div>
-        <h1 style="font-family:'Bebas Neue'; font-size:clamp(58px, 8vw, 104px); line-height:0.85; letter-spacing:0.005em; margin:0;">El pádel<br>no espera<br><span style="color:#2e5a3d;">al buen clima</span></h1>
-        <p style="margin:0; max-width:470px; font-size:18px; line-height:1.6; color:rgba(51,38,26,.82); text-wrap:pretty;">Indoor, iluminado y siempre en condiciones. Elegís día y hora, dejás la seña y te esperamos con la cancha lista.</p>
-        <div style="display:flex; gap:26px; padding-top:16px; border-top:1px solid rgba(51,38,26,.16); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; color:rgba(51,38,26,.72); flex-wrap:wrap;">
-          <div>ABIERTO<br><span style="color:#33261a; font-weight:500;">8:00 – 00:30</span></div>
-          <div>CANCHAS<br><span style="color:#33261a; font-weight:500;">4 indoor</span></div>
-          <div>PALETAS<br><span style="color:#33261a; font-weight:500;">Alquiler</span></div>
-        </div>
-      </div>
-      <div style="aspect-ratio:3/4; min-height:320px; border:1px solid rgba(51,38,26,.12); overflow:hidden; background:#1a140d;">
-        <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
-          <source src="assets/padel-hero.mp4" type="video/mp4">
-        </video>
+  <div style="position:relative; width:100%; min-height:clamp(480px, 82vh, 720px); overflow:hidden; color:#f0e7d7;">
+    <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;">
+      <source src="assets/padel-hero.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,15,10,.5) 0%, rgba(20,15,10,.68) 55%, rgba(20,15,10,.86) 100%);"></div>
+    <div style="position:relative; z-index:2; max-width:1180px; margin:0 auto; height:100%; min-height:clamp(480px, 82vh, 720px); padding:100px 32px 56px; display:flex; flex-direction:column; justify-content:flex-end; gap:22px;">
+      <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#d9bd8b;">Córdoba capital · 4 canchas techadas</div>
+      <h1 style="font-family:'Bebas Neue'; font-size:clamp(58px, 8vw, 104px); line-height:0.85; letter-spacing:0.005em; margin:0;">El pádel<br>no espera<br><span style="color:#d9bd8b;">al buen clima</span></h1>
+      <p style="margin:0; max-width:470px; font-size:18px; line-height:1.6; color:rgba(240,231,215,.88); text-wrap:pretty;">Indoor, iluminado y siempre en condiciones. Elegís día y hora, dejás la seña y te esperamos con la cancha lista.</p>
+      <div style="display:flex; gap:26px; padding-top:16px; border-top:1px solid rgba(240,231,215,.24); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; color:rgba(240,231,215,.72); flex-wrap:wrap;">
+        <div>ABIERTO<br><span style="color:#f0e7d7; font-weight:500;">8:00 – 00:30</span></div>
+        <div>CANCHAS<br><span style="color:#f0e7d7; font-weight:500;">4 indoor</span></div>
+        <div>PALETAS<br><span style="color:#f0e7d7; font-weight:500;">Alquiler</span></div>
       </div>
     </div>
   </div>
