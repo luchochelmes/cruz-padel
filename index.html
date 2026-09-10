@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padel Cruz Indoor — Córdoba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #f0e7d7; max-width: 100%; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { opacity: 0.72; }
+  html { scroll-behavior: smooth; }
+  img, video { max-width: 100%; }
+  input, select, textarea { font-size: 16px; }
+  #reservar, #canchas, #precios, #club, #contacto { scroll-margin-top: 76px; }
+
+  .pci-nav-links { display: flex; gap: 26px; font-size: 14px; font-weight: 600; }
+  .pci-nav-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: #33261a; }
+  #navMenu { display: none; }
+  @media (max-width: 760px) {
+    .pci-nav-links { display: none !important; }
+    .pci-nav-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
+    #navMenu.pci-open { display: flex !important; }
+  }
+</style>
+</head>
+<body>
+
+<div style="width:100%; background:#f0e7d7; color:#33261a; font-family:'Manrope', sans-serif;">
+
+  <div style="position:sticky; top:0; z-index:20; background:rgba(240,231,215,.94); backdrop-filter:blur(8px); border-bottom:1px solid rgba(51,38,26,.14);">
+    <div style="max-width:1180px; margin:0 auto; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div style="font-family:'Bebas Neue'; font-size:22px; letter-spacing:0.04em; line-height:1; white-space:nowrap;">PADEL CRUZ <span style="color:#2e5a3d;">INDOOR</span></div>
+      <div class="pci-nav-links">
+        <a href="#canchas">Canchas</a>
+        <a href="#precios">Precios y horarios</a>
+        <a href="#club">El club</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <a href="#reservar" style="border:1.5px solid #33261a; border-radius:8px; padding:9px 16px; font-weight:700; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; display:inline-flex; align-items:center; gap:6px; white-space:nowrap;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M21 10H3m13-8v4M8 2v4m-.2 16h8.4c1.6802 0 2.5202 0 3.162-.327a3 3 0 0 0 1.311-1.311C21 19.7202 21 18.8802 21 17.2V8.8c0-1.6802 0-2.5202-.327-3.162a3 3 0 0 0-1.311-1.311C18.7202 4 17.8802 4 16.2 4H7.8c-1.6802 0-2.5202 0-3.162.327a3 3 0 0 0-1.311 1.311C3 6.2798 3 7.1198 3 8.8v8.4c0 1.6802 0 2.5202.327 3.162a3 3 0 0 0 1.311 1.311C5.2798 22 6.1198 22 7.8 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reservar</a>
+        <button id="navToggle" class="pci-nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <svg id="navToggleIcon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="navMenu" style="flex-direction:column; border-top:1px solid rgba(51,38,26,.14); padding:8px 20px 16px;">
+      <a href="#canchas" style="padding:12px 0; font-size:15px; font-weight:600; border-bottom:1px solid rgba(51,38,26,.1);">Canchas</a>
+      <a href="#precios" style="padding:12px 0; font-size:15px; font-weight:600; border-bottom:1px solid rgba(51,38,26,.1);">Precios y horarios</a>
+      <a href="#club" style="padding:12px 0; font-size:15px; font-weight:600; border-bottom:1px solid rgba(51,38,26,.1);">El club</a>
+      <a href="#contacto" style="padding:12px 0; font-size:15px; font-weight:600;">Contacto</a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var btn = document.getElementById('navToggle');
+      var menu = document.getElementById('navMenu');
+      var icon = document.getElementById('navToggleIcon');
+      function closeMenu() {
+        menu.classList.remove('pci-open');
+        btn.setAttribute('aria-expanded', 'false');
+        icon.innerHTML = '<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+      }
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('pci-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        icon.innerHTML = open
+          ? '<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+          : '<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+      });
+      menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+    })();
+  </script>
+
+  <div style="max-width:1180px; margin:0 auto; padding:56px 32px 0;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:36px; align-items:end;">
+      <div style="display:flex; flex-direction:column; gap:22px;">
+        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#2e5a3d;">Córdoba capital · 4 canchas techadas</div>
+        <h1 style="font-family:'Bebas Neue'; font-size:clamp(58px, 8vw, 104px); line-height:0.85; letter-spacing:0.005em; margin:0;">El pádel<br>no espera<br><span style="color:#2e5a3d;">al buen clima</span></h1>
+        <p style="margin:0; max-width:470px; font-size:18px; line-height:1.6; color:rgba(51,38,26,.82); text-wrap:pretty;">Indoor, iluminado y siempre en condiciones. Elegís día y hora, dejás la seña y te esperamos con la cancha lista.</p>
+        <div style="display:flex; gap:26px; padding-top:16px; border-top:1px solid rgba(51,38,26,.16); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; color:rgba(51,38,26,.72); flex-wrap:wrap;">
+          <div>ABIERTO<br><span style="color:#33261a; font-weight:500;">8:00 – 00:30</span></div>
+          <div>CANCHAS<br><span style="color:#33261a; font-weight:500;">4 indoor</span></div>
+          <div>PALETAS<br><span style="color:#33261a; font-weight:500;">Alquiler</span></div>
+        </div>
+      </div>
+      <div style="aspect-ratio:3/4; min-height:320px; border:1px solid rgba(51,38,26,.12); overflow:hidden; background:#1a140d;">
+        <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+          <source src="assets/padel-hero.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div id="reservar" style="max-width:1180px; margin:0 auto; padding:48px 32px 64px;">
+    <div style="background:#33261a; color:#f0e7d7; padding:32px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:32px; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:center; gap:10px; color:#d9bd8b;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 10H3m13-8v4M8 2v4m-.2 16h8.4c1.6802 0 2.5202 0 3.162-.327a3 3 0 0 0 1.311-1.311C21 19.7202 21 18.8802 21 17.2V8.8c0-1.6802 0-2.5202-.327-3.162a3 3 0 0 0-1.311-1.311C18.7202 4 17.8802 4 16.2 4H7.8c-1.6802 0-2.5202 0-3.162.327a3 3 0 0 0-1.311 1.311C3 6.2798 3 7.1198 3 8.8v8.4c0 1.6802 0 2.5202.327 3.162a3 3 0 0 0 1.311 1.311C5.2798 22 6.1198 22 7.8 22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div style="font-family:'Bebas Neue'; font-size:38px; line-height:0.95; letter-spacing:0.02em;">Turnos<br>disponibles</div>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(240,231,215,.78);">Elegí día, duración y horario. Reservás y pagás desde acá — sin WhatsApp.</p>
+          <div id="duraciones" style="display:flex; gap:8px; margin-top:4px; flex-wrap:wrap;"></div>
+          <div style="display:flex; gap:16px; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; margin-top:4px; flex-wrap:wrap;">
+            <span style="display:flex; align-items:center; gap:6px;"><span style="width:9px; height:9px; background:#d9bd8b; display:block;"></span>LIBRE</span>
+            <span style="display:flex; align-items:center; gap:6px; color:rgba(240,231,215,.7);"><span style="width:9px; height:9px; background:rgba(240,231,215,.18); display:block;"></span>TOMADO</span>
+          </div>
+        </div>
+        <div>
+          <div id="dias" style="display:flex; gap:8px; margin-bottom:14px; overflow-x:auto; padding-bottom:2px;"></div>
+          <div id="turnos" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(74px, 1fr)); gap:7px; max-height:280px; overflow-y:auto; padding-right:2px;"></div>
+          <div id="cerradoMsg" style="display:none; padding:20px 0; font-size:14px; color:rgba(240,231,215,.7);">El club permanece cerrado este día.</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:18px; margin-top:18px; flex-wrap:wrap;">
+            <div id="resumen" style="font-size:14px; color:rgba(240,231,215,.85);">Tocá un horario libre para reservar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bookingModal" style="display:none; position:fixed; inset:0; background:rgba(20,15,10,.62); backdrop-filter:blur(3px); z-index:100; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#f0e7d7; color:#33261a; max-width:440px; width:100%; padding:34px 30px; position:relative; font-family:'Manrope', sans-serif; max-height:90vh; overflow-y:auto;">
+      <button id="modalClose" aria-label="Cerrar" style="position:absolute; top:14px; right:16px; background:none; border:none; font-size:22px; line-height:1; cursor:pointer; color:#33261a;">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="canchas" style="max-width:1180px; margin:0 auto; padding:0 32px 72px;">
+    <div style="display:flex; align-items:baseline; gap:18px; border-top:2px solid #33261a; padding-top:20px; margin-bottom:26px; flex-wrap:wrap;">
+      <h2 style="font-family:'Bebas Neue'; font-size:clamp(38px, 4.4vw, 52px); letter-spacing:0.02em; margin:0; line-height:1;">Las canchas</h2>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#2e5a3d;">01</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px;">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="aspect-ratio:1/1; background-image:url('assets/cancha-panoramica.png'), repeating-linear-gradient(135deg,#e2d5bd 0 12px,#e9dfca 12px 24px); background-size:cover; background-position:center; border:1px solid rgba(51,38,26,.12);"></div>
+        <div style="font-family:'Bebas Neue'; font-size:26px; letter-spacing:0.02em;">4 canchas blindex</div>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(51,38,26,.8);">Cancha Padel 1, 2, 3 y 4: todas techadas, con superficie sintética y vidrio (blindex).</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="aspect-ratio:1/1; background-image:url('assets/luz.jpeg'), repeating-linear-gradient(135deg,#e2d5bd 0 12px,#e9dfca 12px 24px); background-size:cover; background-position:center; border:1px solid rgba(51,38,26,.12);"></div>
+        <div style="font-family:'Bebas Neue'; font-size:26px; letter-spacing:0.02em;">Luz pareja</div>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(51,38,26,.8);">Las 4 canchas tienen iluminación propia para jugar de noche sin sombras.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="aspect-ratio:1/1; background-image:url('assets/servicios.jpeg'), repeating-linear-gradient(135deg,#e2d5bd 0 12px,#e9dfca 12px 24px); background-size:cover; background-position:center; border:1px solid rgba(51,38,26,.12);"></div>
+        <div style="font-family:'Bebas Neue'; font-size:26px; letter-spacing:0.02em;">Servicios</div>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(51,38,26,.8);">Estacionamiento, quincho, vestuarios, bar/restaurante, alquiler de paletas, Wi-Fi, ayuda médica y lavado de auto por parte de terceros.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="precios" style="max-width:1180px; margin:0 auto; padding:0 32px 72px;">
+    <div style="display:flex; align-items:baseline; gap:18px; border-top:2px solid #33261a; padding-top:20px; margin-bottom:26px; flex-wrap:wrap;">
+      <h2 style="font-family:'Bebas Neue'; font-size:clamp(38px, 4.4vw, 52px); letter-spacing:0.02em; margin:0; line-height:1;">Precios y horarios</h2>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#2e5a3d;">02</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+      <div style="display:flex; flex-direction:column;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-bottom:1px solid rgba(51,38,26,.16);">
+          <div><div style="font-weight:700; font-size:17px;">Turno 60 min</div><div style="font-size:14px; color:rgba(51,38,26,.8);">Cualquier cancha, cualquier horario</div></div>
+          <div style="font-family:'Bebas Neue'; font-size:28px; color:#2e5a3d; letter-spacing:0.02em; white-space:nowrap;">$ 40.000</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-bottom:1px solid rgba(51,38,26,.16);">
+          <div><div style="font-weight:700; font-size:17px;">Turno 90 min</div><div style="font-size:14px; color:rgba(51,38,26,.8);">Cualquier cancha, cualquier horario</div></div>
+          <div style="font-family:'Bebas Neue'; font-size:28px; color:#2e5a3d; letter-spacing:0.02em; white-space:nowrap;">$ 50.000</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:16px 0; border-bottom:1px solid rgba(51,38,26,.16);">
+          <div><div style="font-weight:700; font-size:17px;">Turno 120 min</div><div style="font-size:14px; color:rgba(51,38,26,.8);">Cualquier cancha, cualquier horario</div></div>
+          <div style="font-family:'Bebas Neue'; font-size:28px; color:#2e5a3d; letter-spacing:0.02em; white-space:nowrap;">$ 65.000</div>
+        </div>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; line-height:1.7; color:rgba(51,38,26,.78); margin-top:12px;">PRECIOS EN PESOS ARGENTINOS (ARS), VALOR POR CANCHA. FUENTE: SISTEMA DE RESERVAS ONLINE DEL CLUB.</div>
+      </div>
+      <div style="background:#2e5a3d; color:#f0e7d7; padding:30px;">
+        <div style="display:flex; align-items:center; gap:9px; font-family:'Bebas Neue'; font-size:32px; letter-spacing:0.02em; line-height:1;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 6v6l4 2m6-2c0 5.5228-4.4772 10-10 10S2 17.5228 2 12 6.4772 2 12 2s10 4.4772 10 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Horarios</div>
+        <div style="display:flex; flex-direction:column; margin-top:18px;">
+          <div style="display:flex; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid rgba(240,231,215,.24); font-size:15px;"><span style="font-weight:600;">Lun a vie</span><span style="font-family:'JetBrains Mono', monospace; font-size:13px;">08:00 – 00:30</span></div>
+          <div style="display:flex; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid rgba(240,231,215,.24); font-size:15px;"><span style="font-weight:600;">Sábados</span><span style="font-family:'JetBrains Mono', monospace; font-size:13px;">08:00 – 00:00</span></div>
+          <div style="display:flex; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid rgba(240,231,215,.24); font-size:15px;"><span style="font-weight:600;">Domingos</span><span style="font-family:'JetBrains Mono', monospace; font-size:13px;">Cerrado</span></div>
+          <div style="display:flex; justify-content:space-between; gap:12px; padding:13px 0; font-size:15px;"><span style="font-weight:600;">Feriados</span><span style="font-family:'JetBrains Mono', monospace; font-size:13px;">08:00 – 01:00</span></div>
+        </div>
+        <div style="margin-top:22px; font-size:14px; line-height:1.6; color:rgba(240,231,215,.88);">4 canchas techadas, superficie blindex sintética, con iluminación.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="club" style="max-width:1180px; margin:0 auto; padding:0 32px 72px;">
+    <div style="display:flex; align-items:baseline; gap:18px; border-top:2px solid #33261a; padding-top:20px; margin-bottom:26px; flex-wrap:wrap;">
+      <h2 style="font-family:'Bebas Neue'; font-size:clamp(38px, 4.4vw, 52px); letter-spacing:0.02em; margin:0; line-height:1;">El club</h2>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#2e5a3d;">03</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:36px; align-items:center;">
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <p style="margin:0; font-size:20px; line-height:1.55; text-wrap:pretty;">Padel Cruz Indoor nació con una idea simple: que en Córdoba se pueda jugar al pádel bien, todos los días del año.</p>
+        <p style="margin:0; font-size:16px; line-height:1.65; color:rgba(51,38,26,.82); text-wrap:pretty;">Techamos todo, cuidamos las superficies y armamos un lugar donde después del partido uno se queda un rato. Por el club pasan jugadores de todos los niveles: los que arrancan, los que vienen cada semana con el mismo cuarteto y los que compiten en los torneos internos.</p>
+        <div style="display:flex; gap:28px; margin-top:8px; padding-top:18px; border-top:1px solid rgba(51,38,26,.16); flex-wrap:wrap;">
+          <div><div style="font-family:'Bebas Neue'; font-size:40px; color:#2e5a3d; line-height:1;">4</div><div style="font-size:13px; color:rgba(51,38,26,.8);">canchas indoor</div></div>
+          <div><div style="font-family:'Bebas Neue'; font-size:40px; color:#2e5a3d; line-height:1;">18h</div><div style="font-size:13px; color:rgba(51,38,26,.8);">abiertos por día</div></div>
+          <div><div style="font-family:'Bebas Neue'; font-size:40px; color:#2e5a3d; line-height:1;">365</div><div style="font-size:13px; color:rgba(51,38,26,.8);">días al año</div></div>
+        </div>
+      </div>
+      <div style="aspect-ratio:1/1; min-height:280px; background-image:url('assets/club-lounge.jpeg'), repeating-linear-gradient(135deg,#e2d5bd 0 12px,#e9dfca 12px 24px); background-size:cover; background-position:center; border:1px solid rgba(51,38,26,.12);"></div>
+    </div>
+  </div>
+
+  <div id="contacto" style="background:#33261a; color:#f0e7d7;">
+    <div style="max-width:1180px; margin:0 auto; padding:64px 32px; display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:40px; align-items:center;">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="font-family:'Bebas Neue'; font-size:clamp(42px, 5vw, 56px); line-height:0.92; letter-spacing:0.02em;">Vení a jugar</div>
+        <div style="display:flex; flex-direction:column; gap:14px; font-size:16px;">
+          <div style="display:flex; gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0; margin-top:2px; color:#d9bd8b;"><path d="M12 13c1.6569 0 3-1.3431 3-3s-1.3431-3-3-3-3 1.3431-3 3 1.3431 3 3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22c4-4 8-7.5817 8-12s-3.5817-8-8-8-8 3.5817-8 8 4 8 8 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; color:#d9bd8b;">DIRECCIÓN</div><div style="margin-top:3px;">Continuación Av. Japón, entre Rancagua y Juan B. Justo, Córdoba Capital</div></div></div>
+          <div style="display:flex; gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0; margin-top:2px; color:#d9bd8b;"><path d="M6.0944 11.2288A8 8 0 0 1 6 10c0-4.4183 3.6053-8 8.0526-8s8.0526 3.5817 8.0526 8c0 .9981-.1839 1.9535-.52 2.8345-.0698.183-.1048.2745-.1206.3459a.9.9 0 0 0-.0235.1931c-.0017.0731.0082.1537.0281.3148l.4025 3.2702c.0436.354.0654.531.0065.6597a.5.5 0 0 1-.2571.2513c-.13.0559-.3065.03-.6594-.0217l-3.1852-.4669c-.1664-.0244-.2495-.0366-.3253-.0361a.9.9 0 0 0-.2001.0213c-.0741.0156-.1688.0511-.3581.122-.8833.3309-1.8406.5119-2.8404.5119a8.2 8.2 0 0 1-1.2299-.0927M7.6316 22C10.5965 22 13 19.5376 13 16.5S10.5965 11 7.6316 11s-5.3684 2.4624-5.3684 5.5c0 .6106.097 1.1979.2764 1.7467.0757.232.1136.348.126.4272a.85.85 0 0 1 .0105.2128c-.0046.0801-.0247.1706-.0648.3516L2 22l2.9948-.409c.1635-.0223.2452-.0335.3166-.033a.84.84 0 0 1 .1887.0193c.07.0139.174.0506.3822.1241A5.25 5.25 0 0 0 7.6316 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; color:#d9bd8b;">WHATSAPP</div><div style="margin-top:3px;"><a href="https://wa.me/5493513559909">+54 9 351 355-9909</a></div></div></div>
+          <div><div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; color:#d9bd8b;">INSTAGRAM</div><div style="margin-top:3px;"><a href="https://www.instagram.com/padelcruz.indoor/" style="color:#d9bd8b;">@padelcruz.indoor</a></div></div>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=-31.3366368,-64.1628079" target="_blank" rel="noopener" style="align-self:flex-start; background:#d9bd8b; color:#33261a; border-radius:8px; padding:15px 26px; font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; display:inline-flex; align-items:center; gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 13c1.6569 0 3-1.3431 3-3s-1.3431-3-3-3-3 1.3431-3 3 1.3431 3 3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22c4-4 8-7.5817 8-12s-3.5817-8-8-8-8 3.5817-8 8 4 8 8 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Abrir en Google Maps</a>
+      </div>
+      <div style="aspect-ratio:4/3; min-height:240px; border:1px solid rgba(240,231,215,.18); overflow:hidden;"><iframe title="Ubicación Padel Cruz Indoor" src="https://www.google.com/maps?q=-31.3366368,-64.1628079&z=15&output=embed" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px; margin:0 auto; padding:28px 32px; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(51,38,26,.78);">
+    <span>Padel Cruz Indoor · Córdoba</span>
+    <span>Reservas · Torneos · Clases · <a href="admin.html" style="text-decoration:underline;">Panel del club</a></span>
+  </div>
+</div>
+
+<style>
+  @keyframes pciSpin { to { transform: rotate(360deg); } }
+  .pci-spinner { width:18px; height:18px; border:2.5px solid rgba(51,38,26,.25); border-top-color:#33261a; border-radius:50%; display:inline-block; animation: pciSpin .7s linear infinite; vertical-align:middle; }
+  .pci-input { padding:12px 14px; border:1px solid rgba(51,38,26,.3); background:#fff; font-family:inherit; font-size:16px; color:#33261a; width:100%; border-radius:6px; }
+  .pci-input:focus { outline:2px solid #2e5a3d; outline-offset:1px; }
+  .pci-pay-option { display:flex; align-items:center; gap:10px; border:1.5px solid rgba(51,38,26,.25); padding:13px 14px; cursor:pointer; font-size:14px; }
+  .pci-pay-option.active { border-color:#33261a; background:rgba(51,38,26,.06); }
+</style>
+
+<script>
+(function () {
+  // Íconos de Untitled UI (https://www.untitledui.com/icons), extraídos de @untitled-ui/icons-react como SVG estático.
+  const UI_ICONS = {
+    calendar: ['M21 10H3m13-8v4M8 2v4m-.2 16h8.4c1.6802 0 2.5202 0 3.162-.327a3 3 0 0 0 1.311-1.311C21 19.7202 21 18.8802 21 17.2V8.8c0-1.6802 0-2.5202-.327-3.162a3 3 0 0 0-1.311-1.311C18.7202 4 17.8802 4 16.2 4H7.8c-1.6802 0-2.5202 0-3.162.327a3 3 0 0 0-1.311 1.311C3 6.2798 3 7.1198 3 8.8v8.4c0 1.6802 0 2.5202.327 3.162a3 3 0 0 0 1.311 1.311C5.2798 22 6.1198 22 7.8 22'],
+    chat: ['M6.0944 11.2288A8 8 0 0 1 6 10c0-4.4183 3.6053-8 8.0526-8s8.0526 3.5817 8.0526 8c0 .9981-.1839 1.9535-.52 2.8345-.0698.183-.1048.2745-.1206.3459a.9.9 0 0 0-.0235.1931c-.0017.0731.0082.1537.0281.3148l.4025 3.2702c.0436.354.0654.531.0065.6597a.5.5 0 0 1-.2571.2513c-.13.0559-.3065.03-.6594-.0217l-3.1852-.4669c-.1664-.0244-.2495-.0366-.3253-.0361a.9.9 0 0 0-.2001.0213c-.0741.0156-.1688.0511-.3581.122-.8833.3309-1.8406.5119-2.8404.5119a8.2 8.2 0 0 1-1.2299-.0927M7.6316 22C10.5965 22 13 19.5376 13 16.5S10.5965 11 7.6316 11s-5.3684 2.4624-5.3684 5.5c0 .6106.097 1.1979.2764 1.7467.0757.232.1136.348.126.4272a.85.85 0 0 1 .0105.2128c-.0046.0801-.0247.1706-.0648.3516L2 22l2.9948-.409c.1635-.0223.2452-.0335.3166-.033a.84.84 0 0 1 .1887.0193c.07.0139.174.0506.3822.1241A5.25 5.25 0 0 0 7.6316 22'],
+    pin: ['M12 13c1.6569 0 3-1.3431 3-3s-1.3431-3-3-3-3 1.3431-3 3 1.3431 3 3 3', 'M12 22c4-4 8-7.5817 8-12s-3.5817-8-8-8-8 3.5817-8 8 4 8 8 12'],
+    arrowRight: ['M5 12h14m0 0-7-7m7 7-7 7'],
+    card: ['M22 10H2m0-1.8v7.6c0 1.1201 0 1.6802.218 2.108.1917.3763.4977.6823.874.874C3.5198 19 4.08 19 5.2 19h13.6c1.1201 0 1.6802 0 2.108-.218a2 2 0 0 0 .874-.874C22 17.4802 22 16.9201 22 15.8V8.2c0-1.1201 0-1.6802-.218-2.108a2 2 0 0 0-.874-.874C20.4802 5 19.9201 5 18.8 5H5.2c-1.1201 0-1.6802 0-2.108.218a2 2 0 0 0-.874.874C2 6.5198 2 7.08 2 8.2'],
+    clock: ['M12 6v6l4 2m6-2c0 5.5228-4.4772 10-10 10S2 17.5228 2 12 6.4772 2 12 2s10 4.4772 10 10'],
+    check: ['m7.5 12 3 3 6-6m5.5 3c0 5.5228-4.4772 10-10 10S2 17.5228 2 12 6.4772 2 12 2s10 4.4772 10 10']
+  };
+  function uiIcon(name, size, strokeWidth) {
+    size = size || 17;
+    strokeWidth = strokeWidth || 2;
+    const paths = UI_ICONS[name].map(d => `<path d="${d}" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"/>`).join('');
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0; display:inline-block; vertical-align:-3px;">${paths}</svg>`;
+  }
+
+  const STORAGE_KEY = 'padelCruzIndoorBookings';
+  const THEME = { on: '#d9bd8b', onText: '#33261a', off: 'rgba(240,231,215,.9)', taken: 'rgba(240,231,215,.08)', takenText: 'rgba(240,231,215,.45)' };
+  const DOW_SHORT = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+  const DOW_LONG = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const DURATIONS = [
+    { min: 60, label: '60 min', price: 40000 },
+    { min: 90, label: '90 min', price: 50000 },
+    { min: 120, label: '120 min', price: 65000 }
+  ];
+  const TOTAL_COURTS = 4;
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  function fmtTime(min) {
+    const h = Math.floor(min / 60) % 24;
+    const m = min % 60;
+    return pad(h) + ':' + pad(m);
+  }
+  function fmtMoney(n) { return '$ ' + n.toLocaleString('es-AR'); }
+
+  function generateDays(n) {
+    const days = [];
+    let d = new Date();
+    d.setHours(0, 0, 0, 0);
+    while (days.length < n) {
+      const dow = d.getDay();
+      if (dow !== 0) {
+        days.push({
+          iso: d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()),
+          dow: DOW_SHORT[dow],
+          num: d.getDate(),
+          label: DOW_LONG[dow] + ' ' + d.getDate() + '/' + pad(d.getMonth() + 1),
+          isSaturday: dow === 6
+        });
+      }
+      d = new Date(d.getTime() + 86400000);
+    }
+    return days;
+  }
+
+  function generateSlots(day, durationMin) {
+    const openMin = 8 * 60;
+    const closeMin = day.isSaturday ? 24 * 60 : 24 * 60 + 30;
+    const slots = [];
+    for (let t = openMin; t + durationMin <= closeMin; t += 30) slots.push(t);
+    return slots;
+  }
+
+  function hashOccupancy(key) {
+    let h = 0;
+    for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+    return h % 5;
+  }
+
+  function baselineOccupied(iso, startMin) {
+    const h = hashOccupancy(iso + '-' + startMin);
+    if (h === 0) return TOTAL_COURTS;
+    if (h === 1) return 2;
+    return 0;
+  }
+
+  function getBookings() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveBookingToStorage(b) {
+    const all = getBookings();
+    all.push(b);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  }
+  function bookingsAt(iso, startMin) {
+    return getBookings().filter(b => b.dayIso === iso && b.startMin === startMin && b.estado !== 'cancelado').length;
+  }
+  function occupiedCourts(iso, startMin) {
+    return Math.min(TOTAL_COURTS, baselineOccupied(iso, startMin) + bookingsAt(iso, startMin));
+  }
+
+  const DAYS = generateDays(6);
+
+  const state = { dayIndex: 0, duration: 90, selectedSlot: null, step: 0, paying: false, client: { nombre: '', telefono: '', email: '' }, paymentMethod: 'tarjeta', lastBooking: null };
+
+  const diasEl = document.getElementById('dias');
+  const duracionesEl = document.getElementById('duraciones');
+  const turnosEl = document.getElementById('turnos');
+  const cerradoMsgEl = document.getElementById('cerradoMsg');
+  const resumenEl = document.getElementById('resumen');
+  const modalEl = document.getElementById('bookingModal');
+  const modalBodyEl = document.getElementById('modalBody');
+  const modalCloseEl = document.getElementById('modalClose');
+
+  function currentDay() { return DAYS[state.dayIndex]; }
+  function currentDuration() { return DURATIONS.find(d => d.min === state.duration); }
+
+  function renderDuraciones() {
+    duracionesEl.innerHTML = '';
+    DURATIONS.forEach(d => {
+      const activo = d.min === state.duration;
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.style.cssText = `border:1px solid rgba(240,231,215,.35); padding:7px 14px; font-family:'JetBrains Mono', monospace; font-size:12px; cursor:pointer; background:${activo ? '#d9bd8b' : 'transparent'}; color:${activo ? '#33261a' : '#f0e7d7'};`;
+      el.textContent = d.label;
+      el.addEventListener('click', () => { state.duration = d.min; state.selectedSlot = null; renderCalendar(); });
+      duracionesEl.appendChild(el);
+    });
+  }
+
+  function renderDias() {
+    diasEl.innerHTML = '';
+    DAYS.forEach((d, i) => {
+      const activo = i === state.dayIndex;
+      const el = document.createElement('div');
+      el.style.cssText = `flex:0 0 auto; min-width:58px; text-align:center; padding:9px 6px; cursor:pointer; border:1px solid rgba(240,231,215,.2); background:${activo ? THEME.on : 'transparent'}; color:${activo ? THEME.onText : THEME.off};`;
+      el.innerHTML = `<div style="font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.08em; opacity:.75;">${d.dow}</div><div style="font-family:'Bebas Neue'; font-size:19px; line-height:1.1;">${d.num}</div>`;
+      el.addEventListener('click', () => { state.dayIndex = i; state.selectedSlot = null; renderCalendar(); });
+      diasEl.appendChild(el);
+    });
+  }
+
+  function renderTurnos() {
+    const day = currentDay();
+    const slots = generateSlots(day, state.duration);
+    turnosEl.innerHTML = '';
+
+    if (slots.length === 0) {
+      turnosEl.style.display = 'none';
+      cerradoMsgEl.style.display = 'block';
+      return;
+    }
+    turnosEl.style.display = 'grid';
+    cerradoMsgEl.style.display = 'none';
+
+    slots.forEach(startMin => {
+      const occupied = occupiedCourts(day.iso, startMin);
+      const left = TOTAL_COURTS - occupied;
+      const isTaken = left <= 0;
+      const activo = startMin === state.selectedSlot;
+      const el = document.createElement('div');
+      el.style.cssText = `padding:9px 0 7px; text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px; border:1px solid rgba(240,231,215,.16); cursor:${isTaken ? 'not-allowed' : 'pointer'}; background:${isTaken ? THEME.taken : activo ? THEME.on : 'transparent'}; color:${isTaken ? THEME.takenText : activo ? THEME.onText : THEME.off}; text-decoration:${isTaken ? 'line-through' : 'none'};`;
+      let extra = '';
+      if (!isTaken && left === 1) extra = '<div style="font-size:8px; letter-spacing:.06em; margin-top:2px; opacity:.75;">ÚLTIMA CANCHA</div>';
+      el.innerHTML = `<div>${fmtTime(startMin)}</div>${extra}`;
+      if (!isTaken) el.addEventListener('click', () => openModal(startMin));
+      turnosEl.appendChild(el);
+    });
+  }
+
+  function renderCalendar() {
+    renderDuraciones();
+    renderDias();
+    renderTurnos();
+    resumenEl.textContent = 'Tocá un horario libre para reservar';
+  }
+
+  function openModal(startMin) {
+    state.selectedSlot = startMin;
+    state.step = 0;
+    state.paying = false;
+    modalEl.style.display = 'flex';
+    renderModal();
+  }
+  function closeModal() {
+    modalEl.style.display = 'none';
+  }
+  modalCloseEl.addEventListener('click', closeModal);
+  modalEl.addEventListener('click', e => { if (e.target === modalEl) closeModal(); });
+
+  function renderModal() {
+    const day = currentDay();
+    const dur = currentDuration();
+    const time = fmtTime(state.selectedSlot);
+
+    if (state.step === 0) {
+      modalBodyEl.innerHTML = `
+        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.14em; color:#2e5a3d; text-transform:uppercase; margin-bottom:8px;">Paso 1 de 3 &middot; Resumen</div>
+        <div style="font-family:'Bebas Neue'; font-size:32px; line-height:1; margin-bottom:18px;">Confirmá tu turno</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:15px; margin-bottom:22px; border-top:1px solid rgba(51,38,26,.16); border-bottom:1px solid rgba(51,38,26,.16); padding:16px 0;">
+          <div style="display:flex; justify-content:space-between;"><span>Día</span><strong style="text-transform:capitalize;">${day.label}</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span>Horario</span><strong>${time} hs</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span>Duración</span><strong>${dur.label}</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span>Cancha</span><strong>Asignación automática</strong></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:26px;">
+          <span style="font-size:15px;">Total a pagar</span>
+          <span style="font-family:'Bebas Neue'; font-size:34px; color:#2e5a3d;">${fmtMoney(dur.price)}</span>
+        </div>
+        <button id="modalNext" style="width:100%; background:#33261a; color:#f0e7d7; border:none; border-radius:8px; padding:15px; font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">Continuar ${uiIcon('arrowRight', 17)}</button>
+      `;
+      document.getElementById('modalNext').addEventListener('click', () => { state.step = 1; renderModal(); });
+      return;
+    }
+
+    if (state.step === 1) {
+      modalBodyEl.innerHTML = `
+        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.14em; color:#2e5a3d; text-transform:uppercase; margin-bottom:8px;">Paso 2 de 3 &middot; Tus datos</div>
+        <div style="font-family:'Bebas Neue'; font-size:32px; line-height:1; margin-bottom:18px;">¿Quién juega?</div>
+        <form id="clientForm" style="display:flex; flex-direction:column; gap:12px;">
+          <input class="pci-input" required name="nombre" placeholder="Nombre y apellido" value="${state.client.nombre}">
+          <input class="pci-input" required name="telefono" placeholder="WhatsApp (ej: 351 555 1234)" value="${state.client.telefono}">
+          <input class="pci-input" required type="email" name="email" placeholder="Email" value="${state.client.email}">
+          <button type="submit" style="margin-top:8px; width:100%; background:#33261a; color:#f0e7d7; border:none; border-radius:8px; padding:15px; font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">Continuar ${uiIcon('arrowRight', 17)}</button>
+        </form>
+        <button id="modalBack" style="margin-top:12px; background:none; border:none; text-decoration:underline; cursor:pointer; color:#33261a; font-size:13px; padding:0;">Volver</button>
+      `;
+      document.getElementById('clientForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        state.client = { nombre: fd.get('nombre').trim(), telefono: fd.get('telefono').trim(), email: fd.get('email').trim() };
+        state.step = 2;
+        renderModal();
+      });
+      document.getElementById('modalBack').addEventListener('click', () => { state.step = 0; renderModal(); });
+      return;
+    }
+
+    if (state.step === 2) {
+      const dur = currentDuration();
+      const payBtnInner = state.paying
+        ? `<span class="pci-spinner"></span> Procesando pago...`
+        : `${uiIcon('card', 18)} Confirmar y pagar ${fmtMoney(dur.price)}`;
+      modalBodyEl.innerHTML = `
+        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.14em; color:#2e5a3d; text-transform:uppercase; margin-bottom:8px;">Paso 3 de 3 &middot; Pago</div>
+        <div style="font-family:'Bebas Neue'; font-size:32px; line-height:1; margin-bottom:18px;">Confirmar y pagar</div>
+        <div style="font-size:14px; color:rgba(51,38,26,.75); margin-bottom:18px;">${day.label}, ${time} hs &middot; ${dur.label} &middot; ${state.client.nombre}</div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
+          <label class="pci-pay-option ${state.paymentMethod === 'tarjeta' ? 'active' : ''}">
+            <input type="radio" name="pago" value="tarjeta" ${state.paymentMethod === 'tarjeta' ? 'checked' : ''} style="accent-color:#33261a;">
+            Tarjeta de crédito / débito
+          </label>
+          <label class="pci-pay-option ${state.paymentMethod === 'mp' ? 'active' : ''}">
+            <input type="radio" name="pago" value="mp" ${state.paymentMethod === 'mp' ? 'checked' : ''} style="accent-color:#33261a;">
+            Mercado Pago
+          </label>
+        </div>
+        <button id="payBtn" ${state.paying ? 'disabled' : ''} style="width:100%; background:#2e5a3d; color:#f0e7d7; border:none; border-radius:8px; padding:15px; font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase; cursor:${state.paying ? 'default' : 'pointer'}; opacity:${state.paying ? '.85' : '1'}; display:flex; align-items:center; justify-content:center; gap:8px;">${payBtnInner}</button>
+        <button id="modalBack" ${state.paying ? 'disabled' : ''} style="margin-top:12px; background:none; border:none; text-decoration:underline; cursor:pointer; color:#33261a; font-size:13px; padding:0;">Volver</button>
+      `;
+      modalBodyEl.querySelectorAll('input[name="pago"]').forEach(r => {
+        r.addEventListener('change', e => { state.paymentMethod = e.target.value; renderModal(); });
+      });
+      document.getElementById('payBtn').addEventListener('click', () => {
+        if (state.paying) return;
+        state.paying = true;
+        renderModal();
+        setTimeout(() => {
+          const booking = {
+            id: 'PCI-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
+            createdAt: new Date().toISOString(),
+            dayIso: day.iso,
+            dayLabel: day.label,
+            startMin: state.selectedSlot,
+            time: time,
+            duration: dur.min,
+            price: dur.price,
+            cliente: state.client,
+            metodoPago: state.paymentMethod === 'mp' ? 'Mercado Pago' : 'Tarjeta',
+            estado: 'confirmado'
+          };
+          saveBookingToStorage(booking);
+          state.lastBooking = booking;
+          state.paying = false;
+          state.step = 3;
+          renderModal();
+        }, 1400);
+      });
+      if (!state.paying) {
+        document.getElementById('modalBack').addEventListener('click', () => { state.step = 1; renderModal(); });
+      }
+      return;
+    }
+
+    if (state.step === 3) {
+      const b = state.lastBooking;
+      modalBodyEl.innerHTML = `
+        <div style="text-align:center; padding-top:6px;">
+          <div style="width:52px; height:52px; border-radius:50%; background:#2e5a3d; color:#f0e7d7; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;">${uiIcon('check', 26, 2.5)}</div>
+          <div style="font-family:'Bebas Neue'; font-size:34px; line-height:1; margin-bottom:6px;">¡Turno confirmado!</div>
+          <div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#2e5a3d; margin-bottom:22px;">Código de reserva: ${b.id}</div>
+          <div style="text-align:left; display:flex; flex-direction:column; gap:8px; font-size:14px; border-top:1px solid rgba(51,38,26,.16); border-bottom:1px solid rgba(51,38,26,.16); padding:16px 0; margin-bottom:20px;">
+            <div style="display:flex; justify-content:space-between;"><span>Día</span><strong style="text-transform:capitalize;">${b.dayLabel}</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Horario</span><strong>${b.time} hs &middot; ${b.duration} min</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Pagado</span><strong>${fmtMoney(b.price)} (${b.metodoPago})</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>A nombre de</span><strong>${b.cliente.nombre}</strong></div>
+          </div>
+          <p style="font-size:13px; color:rgba(51,38,26,.75); line-height:1.6; margin-bottom:22px;">Te esperamos en cancha. Guardá este código, se lo podés mostrar al llegar al club.</p>
+          <button id="modalDone" style="width:100%; background:#33261a; color:#f0e7d7; border:none; border-radius:8px; padding:15px; font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase; cursor:pointer;">Listo</button>
+        </div>
+      `;
+      document.getElementById('modalDone').addEventListener('click', () => {
+        closeModal();
+        state.selectedSlot = null;
+        state.step = 0;
+        state.client = { nombre: '', telefono: '', email: '' };
+        renderTurnos();
+      });
+    }
+  }
+
+  renderCalendar();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel del club — Padel Cruz Indoor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #f0e7d7; color:#33261a; font-family:'Manrope', sans-serif; max-width:100%; overflow-x:hidden; }
+  a { color: inherit; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 12px 14px; font-size: 13px; border-bottom: 1px solid rgba(51,38,26,.14); white-space: nowrap; }
+  th { font-family:'JetBrains Mono', monospace; font-size: 10px; letter-spacing:.08em; text-transform: uppercase; color: rgba(51,38,26,.6); }
+  tr:hover td { background: rgba(51,38,26,.03); }
+  .btn { border:none; padding:8px 12px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; font-family:'JetBrains Mono', monospace; }
+  .badge { display:inline-block; padding:3px 9px; font-size:10px; letter-spacing:.06em; text-transform:uppercase; font-family:'JetBrains Mono', monospace; }
+
+  .pci-cards { display: none; }
+  .pci-card { border-bottom: 1px solid rgba(51,38,26,.14); padding: 16px; }
+  .pci-card:last-child { border-bottom: none; }
+  .pci-card-row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; font-size: 13px; }
+  .pci-card-row span:first-child { color: rgba(51,38,26,.55); }
+  .pci-card-row span:last-child { text-align: right; }
+  @media (max-width: 760px) {
+    .pci-table-view { display: none !important; }
+    .pci-cards { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<div style="max-width:1240px; margin:0 auto; padding:28px 28px 60px;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:28px;">
+    <div>
+      <div style="font-family:'Bebas Neue'; font-size:28px; letter-spacing:.02em; line-height:1;">PADEL CRUZ <span style="color:#2e5a3d;">INDOOR</span></div>
+      <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:rgba(51,38,26,.6); margin-top:4px;">Panel del club &middot; Reservas online</div>
+    </div>
+    <a href="index.html" style="font-size:13px; font-weight:600; text-decoration:underline;">&larr; Volver al sitio</a>
+  </div>
+
+  <div id="summary" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:32px;"></div>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+    <div style="font-family:'Bebas Neue'; font-size:26px; letter-spacing:.02em;">Reservas recibidas</div>
+    <button id="refreshBtn" class="btn" style="background:#33261a; color:#f0e7d7;">Actualizar</button>
+  </div>
+
+  <div id="tableWrap" style="background:#fff; border:1px solid rgba(51,38,26,.14); overflow-x:auto;"></div>
+
+  <p style="font-size:12px; color:rgba(51,38,26,.55); margin-top:18px; line-height:1.6;">
+    Este panel lee las reservas guardadas por el navegador (localStorage) desde el sitio público. Para que el dueño las vea desde cualquier dispositivo, en producción esto debe conectarse a una base de datos / backend real en vez de localStorage.
+  </p>
+</div>
+
+<script>
+(function () {
+  const STORAGE_KEY = 'padelCruzIndoorBookings';
+
+  function getBookings() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveBookings(all) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  }
+  function fmtMoney(n) { return '$ ' + n.toLocaleString('es-AR'); }
+  function fmtDateTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('es-AR') + ' ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  const summaryEl = document.getElementById('summary');
+  const tableWrapEl = document.getElementById('tableWrap');
+
+  function statusBadge(estado) {
+    const colors = {
+      confirmado: 'background:#2e5a3d; color:#f0e7d7;',
+      cancelado: 'background:rgba(51,38,26,.12); color:rgba(51,38,26,.55); text-decoration:line-through;'
+    };
+    return `<span class="badge" style="${colors[estado] || colors.confirmado}">${estado}</span>`;
+  }
+
+  function render() {
+    const bookings = getBookings().slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const activos = bookings.filter(b => b.estado !== 'cancelado');
+    const ingresos = activos.reduce((sum, b) => sum + b.price, 0);
+    const proximo = activos.slice().sort((a, b) => (a.dayIso + a.startMin) < (b.dayIso + b.startMin) ? -1 : 1)[0];
+
+    summaryEl.innerHTML = `
+      <div style="background:#33261a; color:#f0e7d7; padding:18px 20px;">
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#d9bd8b;">Reservas activas</div>
+        <div style="font-family:'Bebas Neue'; font-size:36px; margin-top:4px;">${activos.length}</div>
+      </div>
+      <div style="background:#2e5a3d; color:#f0e7d7; padding:18px 20px;">
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(240,231,215,.8);">Ingresos confirmados</div>
+        <div style="font-family:'Bebas Neue'; font-size:36px; margin-top:4px;">${fmtMoney(ingresos)}</div>
+      </div>
+      <div style="background:#fff; border:1px solid rgba(51,38,26,.14); padding:18px 20px;">
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(51,38,26,.55);">Próximo turno</div>
+        <div style="font-family:'Bebas Neue'; font-size:22px; margin-top:4px; text-transform:capitalize;">${proximo ? proximo.dayLabel + ' · ' + proximo.time + ' hs' : 'Sin turnos'}</div>
+      </div>
+    `;
+
+    if (bookings.length === 0) {
+      tableWrapEl.innerHTML = `<div style="padding:40px; text-align:center; font-size:14px; color:rgba(51,38,26,.6);">Todavía no hay reservas hechas desde la web.</div>`;
+      return;
+    }
+
+    const rows = bookings.map(b => `
+      <tr>
+        <td style="font-family:'JetBrains Mono', monospace;">${b.id}</td>
+        <td style="text-transform:capitalize;">${b.dayLabel}</td>
+        <td>${b.time} hs</td>
+        <td>${b.duration} min</td>
+        <td>${b.cliente.nombre}</td>
+        <td><a href="https://wa.me/${b.cliente.telefono.replace(/\D/g, '')}" target="_blank" rel="noopener">${b.cliente.telefono}</a></td>
+        <td>${b.cliente.email}</td>
+        <td>${b.metodoPago}</td>
+        <td>${fmtMoney(b.price)}</td>
+        <td>${statusBadge(b.estado)}</td>
+        <td>${fmtDateTime(b.createdAt)}</td>
+        <td>${b.estado !== 'cancelado' ? `<button class="btn cancel-btn" data-id="${b.id}" style="background:rgba(51,38,26,.1); color:#33261a;">Cancelar</button>` : ''}</td>
+      </tr>
+    `).join('');
+
+    const cards = bookings.map(b => `
+      <div class="pci-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+          <span style="font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:700;">${b.id}</span>
+          ${statusBadge(b.estado)}
+        </div>
+        <div class="pci-card-row"><span>Día</span><span style="text-transform:capitalize;">${b.dayLabel}</span></div>
+        <div class="pci-card-row"><span>Hora</span><span>${b.time} hs &middot; ${b.duration} min</span></div>
+        <div class="pci-card-row"><span>Cliente</span><span>${b.cliente.nombre}</span></div>
+        <div class="pci-card-row"><span>WhatsApp</span><span><a href="https://wa.me/${b.cliente.telefono.replace(/\D/g, '')}" target="_blank" rel="noopener">${b.cliente.telefono}</a></span></div>
+        <div class="pci-card-row"><span>Email</span><span style="word-break:break-all;">${b.cliente.email}</span></div>
+        <div class="pci-card-row"><span>Pago</span><span>${b.metodoPago}</span></div>
+        <div class="pci-card-row"><span>Precio</span><span>${fmtMoney(b.price)}</span></div>
+        <div class="pci-card-row"><span>Reservado el</span><span>${fmtDateTime(b.createdAt)}</span></div>
+        ${b.estado !== 'cancelado' ? `<button class="btn cancel-btn" data-id="${b.id}" style="width:100%; margin-top:10px; padding:11px; background:rgba(51,38,26,.1); color:#33261a;">Cancelar</button>` : ''}
+      </div>
+    `).join('');
+
+    tableWrapEl.innerHTML = `
+      <div class="pci-table-view" style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th><th>Día</th><th>Hora</th><th>Duración</th><th>Cliente</th><th>WhatsApp</th><th>Email</th><th>Pago</th><th>Precio</th><th>Estado</th><th>Reservado el</th><th></th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="pci-cards">${cards}</div>
+    `;
+
+    tableWrapEl.querySelectorAll('.cancel-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const all = getBookings();
+        const target = all.find(b => b.id === btn.dataset.id);
+        if (target) target.estado = 'cancelado';
+        saveBookings(all);
+        render();
+      });
+    });
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', render);
+  window.addEventListener('storage', render);
+  render();
+})();
+</script>
+
+</body>
+</html>
